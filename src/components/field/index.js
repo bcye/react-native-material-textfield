@@ -166,8 +166,8 @@ export default class TextField extends PureComponent {
 
     let { value: text, error, fontSize } = this.props;
 
-    let labelState = labelStateFromProps(this.props, { text })? 1 : 0;
-    let focusState = errorStateFromProps(this.props)? -1 : 0;
+    let labelState = labelStateFromProps(this.props, { text }) ? 1 : 0;
+    let focusState = errorStateFromProps(this.props) ? -1 : 0;
 
     this.state = {
       text,
@@ -222,7 +222,7 @@ export default class TextField extends PureComponent {
     let options = {
       toValue: this.focusState(),
       duration,
-      useNativeDriver: false, 
+      useNativeDriver: false,
     };
 
     startAnimation(focusAnimation, options, this.onFocusAnimationEnd);
@@ -252,7 +252,7 @@ export default class TextField extends PureComponent {
       return -1;
     }
 
-    return this.focused? 1 : 0;
+    return this.focused ? 1 : 0;
   }
 
   labelState() {
@@ -260,7 +260,7 @@ export default class TextField extends PureComponent {
       return 1;
     }
 
-    return this.focused? 1 : 0;
+    return this.focused ? 1 : 0;
   }
 
   focus() {
@@ -291,16 +291,16 @@ export default class TextField extends PureComponent {
     let { text } = this.state;
     let { defaultValue } = this.props;
 
-    let value = this.isDefaultVisible()?
-      defaultValue:
+    let value = this.isDefaultVisible() ?
+      defaultValue :
       text;
 
     if (null == value) {
       return '';
     }
 
-    return 'string' === typeof value?
-      value:
+    return 'string' === typeof value ?
+      value :
       String(value);
   }
 
@@ -428,8 +428,8 @@ export default class TextField extends PureComponent {
     let { height: computedHeight } = this.state;
     let { multiline, fontSize, height = computedHeight } = this.props;
 
-    return multiline?
-      height:
+    return multiline ?
+      height :
       fontSize * 1.5;
   }
 
@@ -467,8 +467,8 @@ export default class TextField extends PureComponent {
   inputStyle() {
     let { fontSize, baseColor, textColor, disabled, multiline } = this.props;
 
-    let color = disabled || this.isDefaultVisible()?
-      baseColor:
+    let color = disabled || this.isDefaultVisible() ?
+      baseColor :
       textColor;
 
     let style = {
@@ -480,7 +480,7 @@ export default class TextField extends PureComponent {
 
     if (multiline) {
       let lineHeight = fontSize * 1.5;
-      let offset = 'ios' === Platform.OS? 2 : 0;
+      let offset = 'ios' === Platform.OS ? 2 : 0;
 
       style.height += lineHeight;
       style.transform = [{
@@ -522,8 +522,8 @@ export default class TextField extends PureComponent {
   renderAccessory(prop) {
     let { [prop]: renderAccessory } = this.props;
 
-    return 'function' === typeof renderAccessory?
-      renderAccessory():
+    return 'function' === typeof renderAccessory ?
+      renderAccessory() :
       null;
   }
 
@@ -568,7 +568,7 @@ export default class TextField extends PureComponent {
     let { length: count } = this.value();
     let contentInset = this.contentInset();
 
-    let containerStyle =  {
+    let containerStyle = {
       paddingLeft: contentInset.left,
       paddingRight: contentInset.right,
     };
@@ -607,6 +607,7 @@ export default class TextField extends PureComponent {
       editable,
       tintColor,
       style: inputStyleOverrides,
+      testID = ""
     } = this.props;
 
     let props = this.inputProps();
@@ -615,6 +616,7 @@ export default class TextField extends PureComponent {
     return (
       <TextInput
         selectionColor={tintColor}
+        testID={testID}
 
         {...props}
 
@@ -663,8 +665,8 @@ export default class TextField extends PureComponent {
       style: containerStyle,
       onStartShouldSetResponder: () => true,
       onResponderRelease: this.onPress,
-      pointerEvents: !disabled && editable?
-        'auto':
+      pointerEvents: !disabled && editable ?
+        'auto' :
         'none',
     };
 
